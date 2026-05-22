@@ -2,11 +2,19 @@
 
 import { Search, ShoppingBag, User } from "lucide-react";
 
-export default function Navbar() {
+type NavbarProps = {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function Navbar({
+  search,
+  setSearch,
+}: NavbarProps) {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 py-4">
-        
+
         <div className="flex items-center justify-between gap-4">
 
           {/* LOGO */}
@@ -25,7 +33,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex flex-1 max-w-2xl">
             <div className="flex items-center w-full bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 focus-within:border-emerald-500">
-              
+
               <div className="px-4 text-gray-400">
                 <Search size={20} />
               </div>
@@ -34,6 +42,8 @@ export default function Navbar() {
                 type="text"
                 placeholder="Search products, cars, mobiles..."
                 className="w-full bg-transparent px-2 py-3 outline-none text-gray-700 placeholder:text-gray-400"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
 
               <button className="bg-emerald-600 hover:bg-emerald-700 transition px-6 py-3 text-white font-medium">

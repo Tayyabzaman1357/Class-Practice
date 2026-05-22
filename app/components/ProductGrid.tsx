@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { Search } from "lucide-react";
 
 type Product = {
   id: number;
@@ -13,10 +12,15 @@ type Product = {
   category: string;
 };
 
-export default function ProductGrid() {
+type ProductGridProps = {
+  search: string;
+};
+
+export default function ProductGrid({
+  search,
+}: ProductGridProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
   // FETCH PRODUCTS
@@ -55,24 +59,6 @@ export default function ProductGrid() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-14">
 
-      {/* SEARCH BAR */}
-
-      <div className="flex items-center bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm mb-10">
-        
-        <div className="px-4 text-gray-400">
-          <Search />
-        </div>
-
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="w-full p-4 outline-none text-gray-700"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-      </div>
-
       {/* LOADING */}
 
       {loading ? (
@@ -103,13 +89,13 @@ export default function ProductGrid() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
             {filteredProducts.map((product) => (
               <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.thumbnail}
-              category={product.category}
-            />
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                image={product.thumbnail}
+                category={product.category}
+              />
             ))}
           </div>
         </>
